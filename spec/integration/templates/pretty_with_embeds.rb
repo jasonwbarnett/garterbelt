@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class PrettyWithEmbeds < Garterbelt::Page
   def head
     script 'type' => 'text/javascript' do

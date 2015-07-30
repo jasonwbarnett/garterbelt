@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class FormView < Garterbelt::View
   requires :method => :get
   

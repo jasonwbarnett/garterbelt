@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class MockView
   attr_accessor :output, :_buffer, :_level, :_escape, :cache_store, :render_style
   

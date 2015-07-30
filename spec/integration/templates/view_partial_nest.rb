@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class MyPagelet < Garterbelt::View
   needs :user
   

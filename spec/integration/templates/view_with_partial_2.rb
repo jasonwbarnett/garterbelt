@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ViewWithPartial2 < Garterbelt::View
   needs :user
 

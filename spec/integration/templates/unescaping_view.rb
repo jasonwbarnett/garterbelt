@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class UnescapingView < Garterbelt::View
   requires :format_text
   

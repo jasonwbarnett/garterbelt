@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Garterbelt
   class ContentTag < SimpleTag
     include ContentRendering
@@ -37,7 +38,7 @@ module Garterbelt
         ''
       else 
         head_end = if compactize?
-          view.render_style = :minimized
+          view.render_style = :minified
           ''
         else
           line_end
@@ -48,7 +49,7 @@ module Garterbelt
     end
     
     def compactize?
-      @compactize ||= style == :compact && !content.is_a?(Proc) 
+      @compactize ||= [:compact, :minified].include?(style) && !content.is_a?(Proc) 
     end
     
     def head

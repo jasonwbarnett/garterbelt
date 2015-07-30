@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Garterbelt
   class Cache < Renderer
     include ContentRendering

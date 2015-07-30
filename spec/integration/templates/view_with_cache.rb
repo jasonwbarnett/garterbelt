@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ViewWithCache < Garterbelt::View
   needs :user
 

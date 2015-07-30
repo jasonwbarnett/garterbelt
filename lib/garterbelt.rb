@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 stocking_dir =  File.dirname(__FILE__)
 
 require 'active_support/core_ext/string/output_safety'

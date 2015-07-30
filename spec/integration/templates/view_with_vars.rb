@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ViewWithVars < Garterbelt::View
   needs :user, :params => {}
   

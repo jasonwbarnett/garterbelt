@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Garterbelt::View do
@@ -96,7 +97,7 @@ describe Garterbelt::View do
     describe 'tag nesting' do
       it 'should render correctly at one layer deep' do
         @view._buffer << Garterbelt::SimpleTag.new(:type => :hr, :view => @view)
-        @view.render.should == "<hr>\n"
+        @view.render.should == "<hr>"
       end
       
       describe 'second level' do
@@ -121,7 +122,45 @@ describe Garterbelt::View do
       end
       
       describe 'multi level' do
+        describe 'style => :pretty' do
+          before do
+            @view.render_style = :pretty
+            @view._buffer << Garterbelt::ContentTag.new(:type => :form, :view => @view, :render_style => :pretty) do
+              @view._buffer << Garterbelt::ContentTag.new(:type => :fieldset, :view => @view, :render_style => :pretty) do
+                @view._buffer << Garterbelt::ContentTag.new(:type => :label, :view => @view, :attributes => {:for => 'email'}, :render_style => :pretty) do
+                  @view._buffer << Garterbelt::SimpleTag.new(:type => :input, :view => @view, :attributes => {:name => 'email', :type => 'text'}, :render_style => :pretty)
+                end
+                @view._buffer << Garterbelt::ContentTag.new(:type => :input, :view => @view, :attributes => {:type => 'submit', :value => 'Login or whatever'}, :render_style => :pretty)
+              end
+            end
+            @view.render
+          end
+        
+          it 'should include the deepest level content' do
+            @view.output.should include "<input name=\"email\" type=\"text\">"
+          end
+        
+          it 'should nest properly' do
+            @view.output.should match /<form>\W*<fieldset>\W*<label[^>]*>\W*<input/
+          end
+        
+          it 'should indent properly' do
+            @view.output.should match /^<form>/
+            @view.output.should match /^  <fieldset>/
+            @view.output.should match /^    <label/
+            @view.output.should match /^      <input name="email"/
+          end
+        
+          it 'should include content after the nesting' do
+            @view.output.should include "<input type=\"submit\" value=\"Login or whatever\""
+            @view.output.should match /^    <input type="submit"/
+          end
+        end
+      end
+      
+      describe 'style => :minified' do
         before do
+          @view.render_style.should == :minified
           @view._buffer << Garterbelt::ContentTag.new(:type => :form, :view => @view) do
             @view._buffer << Garterbelt::ContentTag.new(:type => :fieldset, :view => @view) do
               @view._buffer << Garterbelt::ContentTag.new(:type => :label, :view => @view, :attributes => {:for => 'email'}) do
@@ -132,25 +171,25 @@ describe Garterbelt::View do
           end
           @view.render
         end
-        
+
         it 'should include the deepest level content' do
           @view.output.should include "<input name=\"email\" type=\"text\">"
         end
-        
+
         it 'should nest properly' do
           @view.output.should match /<form>\W*<fieldset>\W*<label[^>]*>\W*<input/
         end
-        
-        it 'should indent properly' do
-          @view.output.should match /^<form>/
-          @view.output.should match /^  <fieldset>/
-          @view.output.should match /^    <label/
-          @view.output.should match /^      <input name="email"/
+
+        it 'should not indent' do
+          @view.output.should_not match /\s\s<fieldset>/
         end
         
+        it 'should not line end' do
+          @view.output.should_not match /\n/
+        end
+
         it 'should include content after the nesting' do
           @view.output.should include "<input type=\"submit\" value=\"Login or whatever\""
-          @view.output.should match /^    <input type="submit"/
         end
       end
     end
@@ -434,8 +473,8 @@ describe Garterbelt::View do
               @view.should respond_to(type)
             end
           
-            it "makes a simple tag" do
-              @view.should_receive(:simple_tag).with(type.to_sym)
+            it "makes a simple tag without the leading underscore" do
+              @view.should_receive(:simple_tag).with(type.gsub('_', '').to_sym)
               @view.send(type)
             end
           end

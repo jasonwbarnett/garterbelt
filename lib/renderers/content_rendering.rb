@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Garterbelt
   module ContentRendering
     def self.included(base)

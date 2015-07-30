@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class FormWithTextarea < Garterbelt::View
   def content
     partial FormView, :class => 'texty', :action => '/go/textarea' do

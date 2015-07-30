@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Garterbelt
   class Text < Renderer
     attr_accessor :content
@@ -37,7 +38,7 @@ module Garterbelt
     end
     
     def line_end
-      style == :compact ? '' : super
+      [:minified, :compact].include?(style) ? '' : super
     end
     
     def template

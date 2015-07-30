@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class GarterbeltTemplate < Garterbelt::View
   needs :user, :flash => nil
   

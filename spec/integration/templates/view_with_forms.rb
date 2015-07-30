@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ViewWithForms < Garterbelt::View
   def content
     div :class => 'servey' do

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # this is some Rails mockyness because 
 # require 'rails' when run from rspec causes
 # defined?(Rails) == nil, awesomeness!

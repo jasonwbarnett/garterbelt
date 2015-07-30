@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ViewWithContentTags < Garterbelt::View
   
   def content

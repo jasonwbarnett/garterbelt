@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Garterbelt
   class View
     attr_accessor :output, :_buffer, :_level, :_escape, :block, :initialization_options, :render_style
@@ -7,7 +8,7 @@ module Garterbelt
       self.initialization_options =  opts
       self._buffer = []
       self._level =  initialization_options.delete(:_level) || 0
-      self.render_style = initialization_options.delete(:style) || :pretty
+      self.render_style = initialization_options.delete(:style) || :minified
       self.output = ""
       self._escape = true
       self.block = block if block_given?
@@ -245,7 +246,7 @@ module Garterbelt
     HEAD_TAGS.each do |type|
       class_eval <<-RUBY
         def #{type}(*args)
-          simple_tag(:#{type}, *args)
+          simple_tag(:#{type.gsub('_','')}, *args)
         end
       RUBY
     end
@@ -282,7 +283,7 @@ module Garterbelt
     end
     
     def self.default_render_style
-      @default_render_style ||= :pretty
+      @default_render_style ||= :minified
     end
     
     def self.default_content_method

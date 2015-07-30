@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ErectorTemplate < Erector::Widget
   needs :user, :flash => nil
   

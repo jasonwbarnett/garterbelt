@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Garterbelt
   class Renderer
     attr_accessor :view, :escape
@@ -27,11 +28,11 @@ module Garterbelt
     end
     
     def indent
-      style == :minified ? "" : ' '*level*2
+      [:minified, :compact, :text].include?(style) ? "" : ' '*level*2
     end
     
     def line_end
-      style == :minified ?  "" : "\n"
+      [:minified, :compact].include?(style) ?  "" : "\n"
     end
     
     def render
