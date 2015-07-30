@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Kane Baccigalupi"]
-  s.date = %q{2011-04-20}
+  s.authors = [%q{Kane Baccigalupi}]
+  s.date = %q{2015-07-30}
   s.description = %q{Garterbelt is a Ruby HTML/XML markup framework inspired by Erector and Markaby. Garterbelt maps html tags to methods allowing the intuitive construction of HTML pages using nothing but Ruby. And because it is all Ruby all the time, views benefit from the dryness of inheritance, modules and all the meta magic that Ruby can imagine. Stockings not included.}
   s.email = %q{baccigalupi@gmail.com}
   s.extra_rdoc_files = [
@@ -31,13 +31,14 @@ Gem::Specification.new do |s|
     "garterbelt.gemspec",
     "lib/garterbelt.rb",
     "lib/page.rb",
+    "lib/rails.rb",
     "lib/renderers/cache.rb",
-    "lib/renderers/closed_tag.rb",
     "lib/renderers/comment.rb",
     "lib/renderers/content_rendering.rb",
     "lib/renderers/content_tag.rb",
     "lib/renderers/doctype.rb",
     "lib/renderers/renderer.rb",
+    "lib/renderers/simple_tag.rb",
     "lib/renderers/text.rb",
     "lib/renderers/xml.rb",
     "lib/stocking.rb",
@@ -57,6 +58,7 @@ Gem::Specification.new do |s|
     "spec/integration/expectations/view_with_forms.html",
     "spec/integration/expectations/view_with_tags.html",
     "spec/integration/integration_spec.rb",
+    "spec/integration/rails/app/views/thing/index.html.rb",
     "spec/integration/templates/form.rb",
     "spec/integration/templates/form_with_textarea.rb",
     "spec/integration/templates/pretty_with_embeds.rb",
@@ -74,11 +76,13 @@ Gem::Specification.new do |s|
     "spec/performance/templates/garterbelt.rb",
     "spec/performance/templates/ham.haml",
     "spec/performance/vs_erector.rb",
+    "spec/rails_mocker.rb",
+    "spec/rails_spec.rb",
     "spec/renderers/cache_spec.rb",
-    "spec/renderers/closed_tag_spec.rb",
     "spec/renderers/comment_spec.rb",
     "spec/renderers/content_tag_spec.rb",
     "spec/renderers/doctype_spec.rb",
+    "spec/renderers/simple_tag_spec.rb",
     "spec/renderers/text_spec.rb",
     "spec/spec_helper.rb",
     "spec/string_spec.rb",
@@ -93,13 +97,14 @@ Gem::Specification.new do |s|
     "spec/view/view_variables_spec.rb"
   ]
   s.homepage = %q{http://github.com/baccigalupi/garterbelt}
-  s.licenses = ["MIT"]
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.licenses = [%q{MIT}]
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.7}
   s.summary = %q{Garterbelt is a Ruby HTML/XML markup framework. It is san DSL. Just all Ruby, all the time.}
   s.test_files = [
     "spec/garterbelt_spec.rb",
     "spec/integration/integration_spec.rb",
+    "spec/integration/rails/app/views/thing/index.html.rb",
     "spec/integration/templates/form.rb",
     "spec/integration/templates/form_with_textarea.rb",
     "spec/integration/templates/pretty_with_embeds.rb",
@@ -116,11 +121,13 @@ Gem::Specification.new do |s|
     "spec/performance/templates/erector.rb",
     "spec/performance/templates/garterbelt.rb",
     "spec/performance/vs_erector.rb",
+    "spec/rails_mocker.rb",
+    "spec/rails_spec.rb",
     "spec/renderers/cache_spec.rb",
-    "spec/renderers/closed_tag_spec.rb",
     "spec/renderers/comment_spec.rb",
     "spec/renderers/content_tag_spec.rb",
     "spec/renderers/doctype_spec.rb",
+    "spec/renderers/simple_tag_spec.rb",
     "spec/renderers/text_spec.rb",
     "spec/spec_helper.rb",
     "spec/string_spec.rb",
@@ -136,7 +143,6 @@ Gem::Specification.new do |s|
   ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
@@ -147,7 +153,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<yard>, ["~> 0.6.0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
-      s.add_development_dependency(%q<rcov>, [">= 0"])
+      s.add_development_dependency(%q<rcov>, ["~> 0.9.9"])
+      s.add_development_dependency(%q<rails>, ["~> 3.2"])
       s.add_development_dependency(%q<hashie>, ["~> 1.0"])
       s.add_development_dependency(%q<rbench>, [">= 0"])
       s.add_runtime_dependency(%q<activesupport>, [">= 2.3.8"])
@@ -160,7 +167,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<yard>, ["~> 0.6.0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
-      s.add_dependency(%q<rcov>, [">= 0"])
+      s.add_dependency(%q<rcov>, ["~> 0.9.9"])
+      s.add_dependency(%q<rails>, ["~> 3.2"])
       s.add_dependency(%q<hashie>, ["~> 1.0"])
       s.add_dependency(%q<rbench>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 2.3.8"])
@@ -174,7 +182,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<yard>, ["~> 0.6.0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
-    s.add_dependency(%q<rcov>, [">= 0"])
+    s.add_dependency(%q<rcov>, ["~> 0.9.9"])
+    s.add_dependency(%q<rails>, ["~> 3.2"])
     s.add_dependency(%q<hashie>, ["~> 1.0"])
     s.add_dependency(%q<rbench>, [">= 0"])
     s.add_dependency(%q<activesupport>, [">= 2.3.8"])
