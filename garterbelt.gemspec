@@ -155,10 +155,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_development_dependency(%q<rcov>, ["~> 0.9.9"])
       s.add_development_dependency(%q<rails>, ["~> 3.2"])
-      s.add_development_dependency(%q<hashie>, ["~> 1.0"])
       s.add_development_dependency(%q<rbench>, [">= 0"])
-      s.add_runtime_dependency(%q<activesupport>, [">= 2.3.8"])
-      s.add_runtime_dependency(%q<moneta>, [">= 0.6.0"])
     else
       s.add_dependency(%q<activesupport>, [">= 2.3.8"])
       s.add_dependency(%q<moneta>, [">= 0.6.0"])
@@ -169,10 +166,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_dependency(%q<rcov>, ["~> 0.9.9"])
       s.add_dependency(%q<rails>, ["~> 3.2"])
-      s.add_dependency(%q<hashie>, ["~> 1.0"])
       s.add_dependency(%q<rbench>, [">= 0"])
-      s.add_dependency(%q<activesupport>, [">= 2.3.8"])
-      s.add_dependency(%q<moneta>, [">= 0.6.0"])
     end
   else
     s.add_dependency(%q<activesupport>, [">= 2.3.8"])
@@ -184,10 +178,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
     s.add_dependency(%q<rcov>, ["~> 0.9.9"])
     s.add_dependency(%q<rails>, ["~> 3.2"])
-    s.add_dependency(%q<hashie>, ["~> 1.0"])
     s.add_dependency(%q<rbench>, [">= 0"])
-    s.add_dependency(%q<activesupport>, [">= 2.3.8"])
-    s.add_dependency(%q<moneta>, [">= 0.6.0"])
   end
 end
 
